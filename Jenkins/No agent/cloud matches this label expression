@@ -1,0 +1,79 @@
+“Jenkins is reserved for jobs with matching label expressions. myfreestyle is offline.”
+
+This usually means Jenkins can't find an available agent (node) that matches the job's label requirements. Here's how you can troubleshoot it step by step:
+
+🛠️ Fixing the “Offline / Pending” Jenkins Job Issue
+1. Check Job Configuration
+Go to Configure for the "myfreestyle" job.
+
+Look for the “Restrict where this project can be run” option.
+
+If it's checked, make sure the label matches an active agent/node label.
+
+2. Verify Agent Status
+Go to Manage Jenkins → Nodes.
+
+Check if the agent/node is:
+
+Online
+
+Connected
+
+Has the correct label assigned
+
+If the node is offline or disconnected, Jenkins won’t be able to run the job.
+
+3. Check Master/Controller Availability
+If you're running Jenkins on a single machine (no agents), make sure the job isn’t restricted to a label that doesn’t exist.
+
+Uncheck “Restrict where this project can be run” to allow it to run on the master.
+
+4. Review Jenkins Logs
+Go to Manage Jenkins → System Log.
+
+Look for any errors related to node connection, label mismatch, or job scheduling.
+
+5. Restart Jenkins
+Sometimes a simple restart can reinitialize the agent connections and clear pending jobs.
+
+✅ Quick Test
+Try creating a new freestyle job without any label restrictions and run it. If that works, the issue is definitely label-related.
+
+Want help reviewing your node configuration or job setup? You can paste the job config XML or describe your node setup, and I’ll walk you through it.
+
+
+
+
+this is result
+Thanks for sharing that, Pavan — the issue is crystal clear now. Your Jenkins job is restricted to run on an agent labeled plc-0812, but Jenkins is warning:
+
+"No agent/cloud matches this label expression. Did you mean '5' instead of 'plc-0812'?"
+
+That means Jenkins can't find any active node with the label plc-0812, so the job just sits in the Pending state.
+
+✅ Here's how to fix it:
+1. Double-check the label spelling
+Go to Manage Jenkins → Nodes.
+
+Click on the node you expect to run the job.
+
+Make sure its label is exactly plc-0812. Even a small typo or case mismatch will break it.
+
+2. Assign the correct label to your agent
+If the node exists but has a different label (like 5), you can:
+
+Either change the job’s label to match the node (5)
+
+Or edit the node configuration and set its label to plc-0812
+
+3. Remove label restriction (if not needed)
+If you don’t need to restrict the job to a specific agent:
+
+Uncheck “Restrict where this project can be run” in the job config.
+
+This will allow Jenkins to run the job on any available node (including master, if enabled).
+
+4. Verify agent is online
+Even if the label matches, the node must be connected and online.
+
+If it’s offline, Jenkins won’t schedule the job there.
