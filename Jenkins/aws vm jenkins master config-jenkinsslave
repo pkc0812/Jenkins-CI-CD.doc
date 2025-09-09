@@ -1,0 +1,33 @@
+Jenkins master :-
+ ADD password to jenkins
+ # sudo passwd jenkins
+
+If you want to use vi or vim instead of nano as your default editor for visudo, you can run:
+#sudo EDITOR=vim visudo
+insidefile changes 
+#jenkins ALL=(ALL) NOPASSWD: ALL
+
+permisson BIN
+#vim /etc/passwd
+---> bin/bash
+
+authentication SSHD
+#vim /etc/ssh/sshd_config
+-->passwd authentication yes
+
+Jenkins slave :-
+ADD user/ password to jenkins
+#useradd jenkins
+# sudo passwd jenkins
+If you want to use vi or vim instead of nano as your default editor for visudo, you can run:
+#sudo EDITOR=vim visudo
+insidefile changes 
+#jenkins ALL=(ALL) NOPASSWD: ALL
+
+authentication SSHD
+#vim /etc/ssh/sshd_config
+-->passwd authentication yes
+
+
+
+
