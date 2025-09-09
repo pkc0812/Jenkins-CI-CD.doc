@@ -77,3 +77,58 @@ This will allow Jenkins to run the job on any available node (including master, 
 Even if the label matches, the node must be connected and online.
 
 If it’s offline, Jenkins won’t schedule the job there.
+
+
+🛠️ Steps to Mount a Drive via /etc/fstab
+1. Identify the Device or Share
+Use lsblk or blkid to find the device name or UUID:
+
+bash
+lsblk
+blkid
+
+2. Create a Mount Point
+Choose a directory Jenkins can access, like /mnt/jenkins_data:
+
+bash
+sudo mkdir -p /mnt/jenkins_data
+3. Edit /etc/fstab
+Open the file with root privileges:
+
+bash
+sudo nano /etc/fstab
+Add a line like this (for a local disk):
+
+bash
+UUID=your-uuid-here /mnt/jenkins_data ext4 defaults 0 2
+Or for a network share (e.g. SMB):
+
+bash
+//192.168.1.100/share /mnt/jenkins_data cifs credentials=/etc/smb-credentials,iocharset=utf8,sec=ntlm 0 0
+🔐 If using credentials, create /etc/smb-credentials with:🧪 What You Might Try Next
+If you want to go further:
+
+Code
+username=your_user
+password=your_pass
+Then secure it:
+
+bash
+sudo chmod 600 /etc/smb-credentials
+4. Test the Mount
+Before rebooting, test with:
+
+bash
+sudo mount -a
+If no errors appear, you're good to go.
+
+🧪 What You Might Try Next
+If you want to go further:
+
+Mount a dedicated tmpfs for Jenkins workspace:sudo mkdir /mnt/jenkins_tmp
+echo "tmpfs /mnt/jenkins_tmp tmpfs defaults,size=2G 0 0" | sudo tee -a /etc/fstab                             > mount the disk to jenkins
+sudo mount -a
+
+
+
+
