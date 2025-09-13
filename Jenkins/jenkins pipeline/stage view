@@ -35,3 +35,25 @@ pipeline {
         }
     }
 }
+
+
+3-one shell commands
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello pavan'
+                sh 'mkdir pavan'
+                sh 'touch pavan.html'
+                sh 'echo "hello-pkc" >> pavan.html'
+            }
+        }
+    }
+}
+
+
+
+
