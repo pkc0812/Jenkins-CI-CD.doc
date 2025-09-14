@@ -46,13 +46,41 @@ pipeline {
         stage('Hello') {
             steps {
                 echo 'Hello pavan'
-                sh 'mkdir pavan'
+                sh 'mkdir pavan'pipeline {
+    agent any
+
+  
                 sh 'touch pavan.html'
                 sh 'echo "hello-pkc" >> pavan.html'
             }
         }
     }
 }
+
+4-httpd install &demo view
+
+pipeline {
+    agent any
+
+    stages {
+        stage('pkc') {
+            steps {
+                sh '''
+                   mkdir -p pkc0812i
+                   cd pkc0812i
+                   echo "hello pkc chif" >> index.html
+                   cat index.html
+                   sudo yum install -y httpd
+                   sudo systemctl start httpd
+                   sudo systemctl enable httpd
+                   sudo cp pkc0812i/index.html /var/www/html/
+               '''
+                
+            }
+        }
+    }
+}
+
 
 
 
