@@ -1,4 +1,61 @@
 What is Jenkins Pipeline?
 Jenkins Pipeline (or simply "Pipeline" with a capital "P") is a suite of plugins which supports implementing and integrating continuous delivery pipelines into Jenkins.
+A continuous delivery (CD) pipeline is an automated expression of your process for getting software from version control right through to your users and customers.
+Every change to your software (committed in source control) goes through a complex process on its way to being released.This process involves building the software in a reliable and repeatable manner,
+as well as progressing the built software (called a "build") through multiple stages of testing and deployment.
 
-A continuous delivery (CD) pipeline is an automated expression of your process for getting software from version control right through to your users and customers. Every change to your software (committed in source control) goes through a complex process on its way to being released. This process involves building the software in a reliable and repeatable manner, as well as progressing the built software (called a "build") through multiple stages of testing and deployment.
+>-Automatically creates a Pipeline build process for all branches and pull requests.
+>-Code review/iteration on the Pipeline (along with the remaining source code).
+>-Audit trail for the Pipeline.
+>-Single source of truth [3] for the Pipeline, which can be viewed and edited by multiple members of the project.
+
+Pipeline
+A Pipeline is a user-defined model of a CD pipeline. A Pipeline’s code defines your entire build process, which typically includes stages for building an application, testing it and then delivering it.
+
+Also, a pipeline block is a key part of Declarative Pipeline syntax.
+
+Node
+A node is a machine which is part of the Jenkins environment and is capable of executing a Pipeline.
+
+Also, a node block is a key part of Scripted Pipeline syntax.
+
+Stage
+A stage block defines a conceptually distinct subset of tasks performed through the entire Pipeline (e.g. "Build", "Test" and "Deploy" stages), 
+which is used by many plugins to visualize or present Jenkins Pipeline status/progress.
+
+Step
+A single task. Fundamentally, a step tells Jenkins what to do at a particular point in time (or "step" in the process). For example, to execute the shell command make, use the sh step: sh 'make'. 
+When a plugin extends the Pipeline DSL, [1] that typically means the plugin has implemented a new step.
+
+
+Declarative Pipeline fundamentals -
+
+pipeline {
+    agent any -1
+    stages {
+        stage('Build') { -2
+            steps {
+                // -3
+            }
+        }
+        stage('Test') { -4
+            steps {
+                // -5
+            }
+        }
+        stage('Deploy') { -6
+            steps {
+                // -7
+            }
+        }
+    }
+}
+
+(1)Execute this Pipeline or any of its stages, on any available agent.
+(2)Defines the "Build" stage.
+(3)Perform some steps related to the "Build" stage.
+(4)Defines the "Test" stage.
+(5)Perform some steps related to the "Test" stage.
+(6)Defines the "Deploy" stage.
+(7)Perform some steps related to the "Deploy" stage.
+
