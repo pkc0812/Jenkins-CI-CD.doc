@@ -3,27 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pavan Chowdary</title>
+    <title>Packing King</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: #f4e4bc;
+        }
+        .sidebar {
+            width: 200px;
+            background: #d4a373;
+            padding: 20px;
+            color: #fff;
+        }
+        .sidebar h3 {
+            margin: 0 0 10px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 0;
+            color: #8b4513;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #d4a373;
+            border-radius: 8px;
+            overflow: hidden;
             text-align: center;
-            padding: 50px;
-            background-color: #f0f0f0;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        h1 {
-            font-size: 72px; /* Big size for the main heading */
-            color: #333;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        .product-card img {
+            width: 100%;
+            height: auto;
         }
-        p {
-            font-size: 24px;
-            color: #666;
+        .product-card p {
+            margin: 10px 0;
+            color: #8b4513;
+        }
+        .product-card .price {
+            font-weight: bold;
+            color: #d4a373;
+        }
+        .add-btn {
+            background: #8b4513;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .add-btn:hover {
+            background: #6b2e0e;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #8b4513;
         }
     </style>
 </head>
 <body>
-    <h1>Pavan Chowdary</h1>
-    <p>Welcome to my page!</p>
+    <div class="sidebar">
+        <h3>Packing King</h3>
+        <ul>
+            <li>Gold Packs</li>
+            <li>Silver Packs</li>
+            <li>Royal Jewels</li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h2>10 items in Royal Packs</h2>
+            <div>
+                <input type="text" placeholder="Search" style="padding: 5px;">
+                <button style="padding: 5px 10px;">Share</button>
+            </div>
+        </div>
+        <div class="products">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200x200?text=Royal+Pack" alt="Royal Pack">
+                <p>King's 24KT Gold Pack<br>Premium royal packaging<br>1 Piece</p>
+                <p class="price">₹4999</p>
+                <button class="add-btn">+</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200x200?text=Royal+Pack" alt="Royal Pack">
+                <p>Queen's Silver Pack<br>Elegant royal token<br>1 Piece</p>
+                <p class="price">₹3499</p>
+                <button class="add-btn">+</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200x200?text=Royal+Pack" alt="Royal Pack">
+                <p>King's Triple Jewel Pack<br>Divine royal combo<br>1 Piece</p>
+                <p class="price">₹7499</p>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+        <div class="footer">
+            FREE DELIVERY on orders above ₹999
+        </div>
+    </div>
 </body>
 </html>
