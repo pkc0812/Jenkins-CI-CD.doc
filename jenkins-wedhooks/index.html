@@ -3,129 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Packing King</title>
+    <title>Pavan Chowdary - CI/CD Pipeline</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
             display: flex;
-            background-color: #f4e4bc;
-        }
-        .sidebar {
-            width: 200px;
-            background: #d4a373;
-            padding: 20px;
-            color: #fff;
-        }
-        .sidebar h3 {
-            margin: 0 0 10px;
-        }
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-        .sidebar ul li {
-            margin-bottom: 10px;
-        }
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
+            min-height: 100vh;
+            color: white;
         }
-        .header h2 {
-            margin: 0;
-            color: #8b4513;
-        }
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .product-card {
-            border: 1px solid #d4a373;
-            border-radius: 8px;
-            overflow: hidden;
+        
+        .container {
             text-align: center;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .product-card img {
-            width: 100%;
-            height: auto;
-        }
-        .product-card p {
-            margin: 10px 0;
-            color: #8b4513;
-        }
-        .product-card .price {
+        
+        .main-title {
+            font-size: 5rem;
             font-weight: bold;
-            color: #d4a373;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            letter-spacing: 8px;
+            margin: 20px 0;
+            animation: glow 2s ease-in-out infinite alternate;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffd93d);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s ease infinite, pulse 2s ease-in-out infinite alternate;
         }
-        .add-btn {
-            background: #8b4513;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            margin: 10px;
+        
+        .subtitle {
+            font-size: 1.8rem;
+            margin: 30px 0;
+            color: #e0e0e0;
+            font-weight: 300;
         }
-        .add-btn:hover {
-            background: #6b2e0e;
+        
+        .pipeline-info {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #4ecdc4;
         }
+        
+        .build-info {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        
+        .success-badge {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 20px 0;
+            animation: bounce 1s ease infinite;
+        }
+        
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .tech-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.8); }
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
         .footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #8b4513;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+                letter-spacing: 4px;
+            }
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h3>Packing King</h3>
-        <ul>
-            <li>Gold Packs</li>
-            <li>Silver Packs</li>
-            <li>Royal Jewels</li>
-        </ul>
+    <div class="container">
+        <div class="main-title">
+            PAVAN CHOWDARY
+        </div>
+        
+        <div class="subtitle">
+            DevOps Engineer & CI/CD Specialist
+        </div>
+        
+        <div class="success-badge">
+            ✅ CI/CD Pipeline Active
+        </div>
+        
+        <div class="pipeline-info">
+            <div class="build-info">
+                <strong>🚀 Build Status:</strong> SUCCESS
+            </div>
+            <div class="build-info">
+                <strong>📦 Container:</strong> jenkins-webhook-app
+            </div>
+            <div class="build-info">
+                <strong>🌐 Port:</strong> 8082
+            </div>
+            <div class="build-info">
+                <strong>⏰ Last Updated:</strong> <span id="timestamp"></span>
+            </div>
+        </div>
+        
+        <div class="tech-stack">
+            <div class="tech-item">🐳 Docker</div>
+            <div class="tech-item">🔧 Jenkins</div>
+            <div class="tech-item">📱 GitHub</div>
+            <div class="tech-item">☁️ CI/CD</div>
+            <div class="tech-item">🌐 NGINX</div>
+            <div class="tech-item">⚡ Automation</div>
+        </div>
+        
+        <div style="margin-top: 40px; font-size: 1.1rem;">
+            🎯 <strong>Testing CI/CD Pipeline</strong><br>
+            This page updates automatically when code is pushed to GitHub!
+        </div>
     </div>
-    <div class="content">
-        <div class="header">
-            <h2>10 items in Royal Packs</h2>
-            <div>
-                <input type="text" placeholder="Search" style="padding: 5px;">
-                <button style="padding: 5px 10px;">Share</button>
-            </div>
-        </div>
-        <div class="products">
-            <div class="product-card">
-                <img src="https://via.placeholder.com/200x200?text=Royal+Pack" alt="Royal Pack">
-                <p>King's 24KT Gold Pack<br>Premium royal packaging<br>1 Piece</p>
-                <p class="price">₹4999</p>
-                <button class="add-btn">+</button>
-            </div>
-            <div class="product-card">
-                <img src="https://via.placeholder.com/200x200?text=Royal+Pack" alt="Royal Pack">
-                <p>Queen's Silver Pack<br>Elegant royal token<br>1 Piece</p>
-                <p class="price">₹3499</p>
-                <button class="add-btn">+</button>
-            </div>
-            <div class="product-card">
-                <img src="https://via.placeholder.com/200x200?text=Royal+Pack" alt="Royal Pack">
-                <p>King's Triple Jewel Pack<br>Divine royal combo<br>1 Piece</p>
-                <p class="price">₹7499</p>
-                <button class="add-btn">+</button>
-            </div>
-        </div>
-        <div class="footer">
-            FREE DELIVERY on orders above ₹999
-        </div>
+    
+    <div class="footer">
+        Powered by Jenkins CI/CD Pipeline | GitHub Webhooks | Docker
     </div>
+    
+    <script>
+        // Display current timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const title = document.querySelector('.main-title');
+            title.addEventListener('mouseover', function() {
+                this.style.transform = 'scale(1.1) rotate(2deg)';
+            });
+            title.addEventListener('mouseout', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
 </body>
 </html>
