@@ -62,6 +62,117 @@ Which events: Select "Just the push event"
 Active: Checked
 
 Jenkins pipeline script Groovy:-
+
+pipeline {
+    agent any
+    
+    environment {
+        DOCKER_IMAGE = "pkc0812/jenkins-ci-cd-webhook"
+        DOCKERHUB_CREDENTIALS = 'dockerhub_jenkins'
+        GITHUB_CREDENTIALS = 'github_jenkins'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', 
+                    url: 'https://github.com/pkc0812/jenkins-ci-cd-webhook.git',
+                    credentialsId: "${GITHUB_CREDENTIALS}"
+            }
+        }
+        
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    echo "Building Docker image: ${DOCKER_IMAGE}:${BUILD_NUMBER}"
+                    def dockerImage = docker.build("${DOCKER_IMAGE}:${BUILD_NUMBER}")
+                }
+            }
+        }
+        
+        stage('Push to DockerHub') {
+            steps {
+                script {
+                    docker.withRegistry('', DOCKERHUB_CREDENTIALS) {
+                        def dockerImage = docker.image("${DOCKER_IMAGE}:${BUILD_NUMBER}")
+                        dockerImage.push()
+                        dockerImage.push("latest")
+                        echo "Successfully pushed ${DOCKER_IMAGE}:${BUILD_NUMBER} and latest to DockerHub"
+                    }
+                }
+            }
+        }
+        
+        stage('Clean Local Images') {
+            steps {
+                script {
+                    // Clean up local images except the latest ones
+                    sh """
+                        echo "Cleaning up local Docker images..."
+                        docker image prune -f --filter "until=24h"
+                    """
+                }
+            }
+        }
+        
+        stage('Deploy Container') {
+            steps {
+                script {
+                    // Stop and remove existing container if running
+                    sh '''
+                        echo "Stopping existing container..."
+                        docker stop jenkins-webhook-app || true
+                        docker rm jenkins-webhook-app || true
+                    '''
+                    
+                    // Deploy new container
+                    sh """
+                        echo "Deploying new container..."
+                        docker run -d \
+                        --name jenkins-webhook-app \
+                        -p 8082:80 \
+                        ${DOCKER_IMAGE}:${BUILD_NUMBER}
+                    """
+                }
+            }
+        }
+        
+        stage('Health Check') {
+            steps {
+                script {
+                    sleep(10) // Wait for container to start
+                    sh """
+                        echo "Performing health check..."
+                        curl -f http://localhost:8082 || exit 1
+                        echo "Application is running successfully!"
+                    """
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo "Pipeline execution completed!"
+            sh "docker ps | grep jenkins-webhook-app || echo 'Container not running'"
+        }
+        success {
+            echo "✅ Pipeline executed successfully!"
+            echo "🌐 Application available at: http://YOUR_SERVER_IP:8082"
+        }
+        failure {
+            echo "❌ Pipeline failed!"
+            // Cleanup on failure
+            sh '''
+                docker stop jenkins-webhook-app || true
+                docker rm jenkins-webhook-app || true
+            '''
+        }
+    }
+}
+
+                                                 ------------------------- Complete Jenkins Pipeline ------------------------------
+
 HTML file :-
 <!DOCTYPE html>
 <html lang="en">
