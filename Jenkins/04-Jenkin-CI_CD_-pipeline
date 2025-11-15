@@ -62,7 +62,7 @@ Which events: Select "Just the push event"
 Active: Checked
 
 Jenkins pipeline script Groovy:-
-
+HTML file :-
 <!DOCTYPE html>
 <html lang="en">
 <head>
