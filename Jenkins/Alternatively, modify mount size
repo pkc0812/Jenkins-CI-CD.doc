@@ -1,0 +1,16 @@
+If your system uses /etc/fstab to mount /tmp as tmpfs, edit it:
+
+
+sudo nano /etc/fstab
+Find or add the line:
+
+fstab
+tmpfs /tmp tmpfs defaults,size=10G 0 0
+Then remount:
+
+sudo mount -o remount /tmp
+
+3. Verify the change
+
+df -h /tmp
+You should now see /tmp with a size of approximately 10 GB.
